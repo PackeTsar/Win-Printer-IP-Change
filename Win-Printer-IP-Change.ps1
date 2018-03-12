@@ -57,8 +57,6 @@ Add-PrinterPort -Name $newport -PrinterHostAddress $new_ip
 
 Set-Printer -name $myprintername -PortName $newport
 
-Start-Sleep -m 1000
-
 Remove-PrinterPort -Name $pname
 
 echo `n
