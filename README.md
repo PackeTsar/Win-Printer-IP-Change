@@ -13,11 +13,11 @@ The version of Win-Printer-IP-Change documented here is: **v1.0.0**
 ## HOW TO USE
 Win-Printer-IP-Change is run from PowerShell with only two parameters: the old IP/hostname, and the new IP/hostname.
 
+May first need to: `Set-ExecutionPolicy -ExecutionPolicy Bypass`
+
 Usage: `./Win-Printer-IP-Change.ps1 <old_IP_hostname> <new_IP_hostname>`
 
 Example: `./Win-Printer-IP-Change.ps1 192.168.1.10 172.16.1.10`
-
-
 
 -----------------------------------------
 ## WHAT IT DOES
