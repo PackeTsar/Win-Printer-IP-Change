@@ -23,38 +23,55 @@ foreach ($printer in $printers ){
 	}
 }
 
-if (!$pname) { echo "Port Not Found. Exiting."; Exit }
+if (!$pname) {
+	echo `n;
+	Write-Host "Port Not Found. Exiting." -foreground Red;
+	echo `n;
+	Exit 
+}
 if (!$myprintername) {
-	[void](Read-Host 'Port found but no printer using it. Delete it?');
-	echo "Deleting printer port $pname"
+	echo `n;
+	Write-Host "Port found but no printer using it" -foreground Yellow;
+	echo `n;
+	[void](Read-Host 'Press Enter to delete the unused port...');
+	echo "Deleting printer port $pname";
 	Remove-PrinterPort -Name $pname;
+	echo `n;
+	Write-Host "Port removed" -foreground Green;
+	echo `n;
 	Exit
 }
 
 $newport = "PORT_$new_ip"
 
-echo "Upon confirmation, we will be:"
-echo "    - Adding a new Printer Port ($newport) with IP ($new_ip)"
-echo "    - Applying new Printer Port ($newport) to Printer ($myprintername)"
-echo "    - Removing old Printer Port ($pname)"
-[void](Read-Host '`nPress Enter to make IP switch...')
+echo `n
+Write-Host "Upon confirmation, we will be:" -foreground Green
+Write-Host "    - Adding a new Printer Port ($newport) with IP ($new_ip)" -foreground Green
+Write-Host "    - Applying new Printer Port ($newport) to Printer ($myprintername)" -foreground Green
+Write-Host "    - Removing old Printer Port ($pname)" -foreground Green
+echo `n
+[void](Read-Host 'Press Enter to make IP switch...')
 
 
 Add-PrinterPort -Name $newport -PrinterHostAddress $new_ip
 
 Set-Printer -name $myprintername -PortName $newport
 
+Start-Sleep -m 1000
+
 Remove-PrinterPort -Name $pname
 
-echo "Modified $myprintername"
+echo `n
+Write-Host "Modified $myprintername" -foreground Green
+echo `n
 
-[void](Read-Host '`n`nPress Enter to print test page…')
+[void](Read-Host 'Press Enter to print test page...')
  Invoke-CimMethod -MethodName printtestpage -InputObject (
 	 Get-CimInstance win32_printer -Filter "name LIKE '$myprintername'")
 
-[void](Read-Host '`n`nPress Enter to check print jobs...')
+[void](Read-Host 'Press Enter to check print jobs...')
 
-Get-PrintJob -PrinterName $myprintername
+Get-PrintJob -PrinterName $myprintername | Format-Table | Out-String|% {Write-Host -foreground Green $_}
 
 
 
