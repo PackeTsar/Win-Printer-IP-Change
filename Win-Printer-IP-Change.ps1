@@ -31,12 +31,13 @@ if (!$myprintername) {
 	Exit
 }
 
-$newport = "IP_$new_ip"
+$newport = "PORT_$new_ip"
 
-echo "Adding Printer Port ($newport) with IP ($new_ip)"
-echo "Applying Printer Port ($newport) to Printer ($myprintername)"
-echo "Removing Old Printer Port ($pname)"
-[void](Read-Host 'Press Enter to make IP switch...')
+echo "Upon confirmation, we will be:"
+echo "    - Adding a new Printer Port ($newport) with IP ($new_ip)"
+echo "    - Applying new Printer Port ($newport) to Printer ($myprintername)"
+echo "    - Removing old Printer Port ($pname)"
+[void](Read-Host '`nPress Enter to make IP switch...')
 
 
 Add-PrinterPort -Name $newport -PrinterHostAddress $new_ip
@@ -47,11 +48,11 @@ Remove-PrinterPort -Name $pname
 
 echo "Modified $myprintername"
 
-[void](Read-Host 'Press Enter to print test page…')
+[void](Read-Host '`n`nPress Enter to print test page…')
  Invoke-CimMethod -MethodName printtestpage -InputObject (
 	 Get-CimInstance win32_printer -Filter "name LIKE '$myprintername'")
 
-[void](Read-Host 'Press Enter to check print jobs...')
+[void](Read-Host '`n`nPress Enter to check print jobs...')
 
 Get-PrintJob -PrinterName $myprintername
 
