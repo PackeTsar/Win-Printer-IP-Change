@@ -1,6 +1,18 @@
 $old_ip=$args[0]
 $new_ip=$args[1]
 
+
+
+if (!$old_ip -Or !$new_ip) {
+	echo `n;
+	$fromps = $FALSE
+	$old_ip = Read-Host 'Enter the Old Printer IP';
+	$new_ip = Read-Host 'Enter the New Printer IP';
+	echo `n;
+} Else {
+	$fromps = $TRUE
+}
+
 echo "Going from Old IP ($old_ip) to New IP ($new_ip)"
 
 echo "Getting Printers and Ports"
@@ -27,7 +39,7 @@ if (!$pname) {
 	echo `n;
 	Write-Host "Port Not Found. Exiting." -foreground Red;
 	echo `n;
-	Exit 
+	if (!$fromps) {[void](Read-Host 'Press Enter to close window');Exit}  Else {Exit}
 }
 if (!$myprintername) {
 	echo `n;
@@ -39,7 +51,7 @@ if (!$myprintername) {
 	echo `n;
 	Write-Host "Port removed" -foreground Green;
 	echo `n;
-	Exit
+	if (!$fromps) {[void](Read-Host 'Press Enter to close window');Exit} Else {Exit}
 }
 
 $newport = "PORT_$new_ip"
@@ -71,7 +83,7 @@ echo `n
 
 Get-PrintJob -PrinterName $myprintername | Format-Table | Out-String|% {Write-Host -foreground Green $_}
 
-
+if (!$fromps) {[void](Read-Host 'Press Enter to close window');Exit} Else {Exit}
 
 
 

@@ -31,7 +31,7 @@ Example: `./Win-Printer-IP-Change.ps1 192.168.1.10 172.16.1.10`
 -----------------------------------------
 ## USAGE EXAMPLE
 ```
-PS C:\Users\Administrator\Desktop\Win-Printer-IP-Change> .\Win-Printer-IP-Change.ps1 192.168.1.10 172.16.1.10
+PS C:\Win-Printer-IP-Change> .\Win-Printer-IP-Change.ps1 192.168.1.10 172.16.1.10
 Going from Old IP (192.168.1.10) to New IP (172.16.1.10)
 Getting Printers and Ports
 Found Port: MSFT_TcpIpPrinterPort (Name = "PORT_192.168.1.10", ComputerName = "", PortMonitor = "TCPMON.DLL").Name
@@ -65,5 +65,5 @@ Id    ComputerName    PrinterName     DocumentName         SubmittedTime        
 
 
 
-PS C:\Users\administrator.C1ENGINEERING\Desktop>
+PS C:\Win-Printer-IP-Change>
 ```
